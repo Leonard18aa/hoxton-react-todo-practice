@@ -3,20 +3,20 @@ import React, { useState } from "react";
 function TodoForm(props) {
   const [input, setInput] = useState("");
 
-  const type = letType => {
-    setInput(letType.target.value)
-  }
+  const type = (letType: { target: { value: React.SetStateAction<string>; }; }) => {
+    setInput(letType.target.value);
+  };
 
-  const StopRefreshing = refresh => {
-        refresh.preventDefault()
+  const StopRefreshing = (refresh: { preventDefault: () => void; }) => {
+    refresh.preventDefault();
 
-        props.onSubmit(
-            {
-                id: Math.floor(Math.random() * 10000), 
-                text: input
-            }
-        )
-    }
+    props.onSubmit({
+      id: Math.floor(Math.random() * 10000),
+      text: input,
+    });
+
+    setInput("");
+  };
 
   return (
     <form className="todo-form" onSubmit={StopRefreshing}>
